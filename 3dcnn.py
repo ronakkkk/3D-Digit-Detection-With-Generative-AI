@@ -27,22 +27,6 @@ class VoxelModel(torch.nn.Module):
             torch.nn.Dropout(0.3),
             torch.nn.MaxPool3d(kernel_size=2),
 
-            #             torch.nn.Conv3d(32,64, kernel_size=3),
-            #             torch.nn.ReLU(),
-            #             torch.nn.Dropout(0.3),
-
-            #             torch.nn.Conv3d(64,128, kernel_size=3),
-            #             torch.nn.ReLU(),
-            #             torch.nn.Dropout(0.3),
-
-            #             torch.nn.Conv3d(128,256, kernel_size=3),
-            #             torch.nn.ReLU(),
-            #             torch.nn.Dropout(0.3),
-            #             torch.nn.MaxPool3d(kernel_size=2),
-
-            #             torch.nn.Conv3d(256,512, kernel_size=3),
-            #             torch.nn.ReLU(),
-
             torch.nn.Flatten(),
 
             torch.nn.Linear(1024, 256),
