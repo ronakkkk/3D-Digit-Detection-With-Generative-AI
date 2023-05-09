@@ -12,18 +12,23 @@ from tqdm import tqdm_notebook
 
 import torch
 
+# Get Data
 f = h5py.File(f"full_dataset_vectors.h5/full_dataset_vectors.h5","r")
+
+# Get Train and test data
 x_train = f["X_train"]
 y_train = f["y_train"]
 
 x_test = f["X_test"]
 y_test = f["y_test"]
 
+# Function to convert vector to voxel with default shape = 16x16x16
 def vector_to_voxel(vector, shape=(16,16,16)):
     vec_shape = list(vector.shape[:-1]) + list(shape)
     voxel = vector.reshape(*vec_shape)
     return voxel
 
+# Voxel to pointcloud
 def voxel_to_pointcloud(voxel, num_points=None, shuffle=True):
     assert len(voxel.shape)==3, f"Voxel should be a 3D tensor. Given shape {voxel.shape}!=3"
     x, y, z = np.nonzero(voxel)
@@ -43,13 +48,14 @@ def voxel_to_pointcloud(voxel, num_points=None, shuffle=True):
     return point_cloud
 
 
+# Vector to pointcloud
 def vector_to_pointcloud(vector, num_points=None, shuffle=True):
     voxel = vector_to_voxel(vector)
     voxel = np.squeeze(voxel)
     point_cloud = voxel_to_pointcloud(voxel, num_points, shuffle)
     return point_cloud
 
-
+# plotting 3d digit to visualize in x,y,z  using plotly
 def plot_3d_digit(point_cloud, digit, size=1, opacity=0.3):
     if isinstance(point_cloud, np.ndarray):
         df = pd.DataFrame(point_cloud, columns=["x", "y", "z"])
@@ -62,6 +68,7 @@ def plot_3d_digit(point_cloud, digit, size=1, opacity=0.3):
 idx = np.random.randint(0, len(x_train), 1)
 print(f"Reading {idx} sample from x_train")
 
+# preprocess data
 vec = x_train[idx]
 digit_label = y_train[idx]
 pc = vector_to_pointcloud(vec)
@@ -102,6 +109,7 @@ x_test = np.array(temp)
 print(f"x_test after point cloud conversion {x_test.shape}")
 
 
+# MLP model
 class MLPModel(torch.nn.Module):
     def __init__(self, n_out_classes=10, num_points=1000):
         super(MLPModel, self).__init__()
@@ -150,9 +158,10 @@ class MLPModel(torch.nn.Module):
 
 mdl = MLPModel()
 x = torch.randn(2, 1000, 3)
-mdl(x).shape
+# mdl(x).shape
 
 
+# train MLP model
 def train_on_epoch(model, dl_train, optimizer, loss_fn, device):
     model.train()
     model = model.to(device)
@@ -173,7 +182,7 @@ def train_on_epoch(model, dl_train, optimizer, loss_fn, device):
     mean_loss = np.mean(losses)
     return mean_loss
 
-
+# Test model
 def test(model, dl_test, loss_fn, device):
     model.eval()
     model = model.to(device)
@@ -202,7 +211,7 @@ LEARNING_RATE = 0.0001
 model = MLPModel()
 optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
 loss_fn = torch.nn.CrossEntropyLoss()
-device = "cpu"
+device = "cuda" if torch.cuda.is_available()==True else "cpu"
 epochs = 30
 
 print(f"Using device {device}")
