@@ -1,4 +1,4 @@
-# 3D-Convolutional Neural Network for Digit Detection
+# 3D-Convolutional Neural Network for Digit Detection using Generative AI
 
 ## Dataset 
 The dataset we are going to use is 3D-MNIST Dataset
@@ -23,7 +23,7 @@ In this repository, we provide a set of scripts for loading and preprocessing th
 ## Result
 We are able to achieve an accuracy of 70% using 3D CNN model and following image show an classification report for the same.
 
-![Capture](https://user-images.githubusercontent.com/37010825/237004472-03f05c93-63f6-412f-b235-90e96a53c211.PNG)
+![image](https://github.com/ronakkkk/3D-CNN/assets/37010825/b9735865-8ca9-4e1c-9f2d-8c399dd5d227)
 
 ## Comparison:
 The comparison is between MLP (50% accuracy) and 3D CNN (70% accuracy) using error plot.
