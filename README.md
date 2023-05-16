@@ -1,4 +1,4 @@
-# 3D-Convolutional Neural Network for Digit Detection
+# 3D-Convolutional Neural Network for Digit Detection using Generative AI
 
 ## Dataset 
 The dataset we are going to use is 3D-MNIST Dataset
