@@ -21,7 +21,7 @@ In this repository, we provide a set of scripts for loading and preprocessing th
 ![3D Digit](https://user-images.githubusercontent.com/37010825/237004201-6c12b347-b62b-43dc-b100-28e515f48b52.PNG)
 
 ## Result
-We are able to achieve an accuracy of 70% using 3D CNN model and following image show an classification report for the same.
+We are able to achieve an accuracy of 73% using 3D CNN model and following image show an classification report for the same.
 
 ![image](https://github.com/ronakkkk/3D-CNN/assets/37010825/b9735865-8ca9-4e1c-9f2d-8c399dd5d227)
 
